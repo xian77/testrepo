@@ -1,0 +1,72 @@
+# Configurazione JobPilot. Le variabili ${NOME} vengono lette dall'ambiente (non salvare password nel file).
+
+profile:
+  name: Mario Rossi
+  email: mario.rossi@example.com
+  phone: "+39 333 0000000"
+  headline: Backend Developer Python
+  summary: Ho 5 anni di esperienza nello sviluppo backend con Python e nella gestione di servizi cloud.
+  seniority: mid
+  languages: [italiano, inglese]
+  skills: [python, django, fastapi, postgresql, docker, aws, rest, kubernetes]
+  availability: "da lunedì a venerdì tra le 10:00 e le 17:00"
+  cv_file: cv.pdf              # allegato alle candidature via email
+  cv_text_file: cv.txt         # testo del CV per l'analisi con Claude (facoltativo)
+
+criteria:
+  keywords: [python, backend, django, fastapi, api]
+  required_any: [python]
+  exclude: [senior staff, principal, php, "10+ years", stage, tirocinio]
+  locations: [milano, italia, italy, europe, europa, emea]
+  remote_ok: true
+  min_salary: 35000
+  min_score: 60
+
+sources:
+  - type: remotive
+    search: python
+  - type: arbeitnow
+    pages: 2
+  - type: greenhouse
+    boards: []            # es. [gitlab, datadog]  (slug di boards.greenhouse.io/<slug>)
+  - type: lever
+    companies: []         # es. [spotify]          (slug di jobs.lever.co/<slug>)
+  # - type: rss
+  #   name: indeed
+  #   url: https://...     # qualsiasi feed RSS di una ricerca salvata
+
+apply:
+  mode: review             # review = approvi tu ogni candidatura; auto = invio automatico sopra soglia
+  auto_min_score: 75
+  max_per_day: 10
+  email_applications: true # candidatura via email quando l'annuncio indica un indirizzo
+  language: italiano
+  subject: "Candidatura: {title} - {name}"
+  # cover_letter_template: lettera.txt   # segnaposto: {company} {title} {name} {phone} {summary} {skills}
+  packets_dir: packets     # pacchetti pronti per i form online
+  followup_after_days: 10  # 0 = disattivato
+  standard_answers:
+    Preavviso: 30 giorni
+    RAL desiderata: 40.000 €
+    Disponibilità a trasferte: sì, occasionali
+    Permesso di lavoro UE: sì
+
+email:
+  address: mario.rossi@example.com
+  from_name: Mario Rossi
+  username: mario.rossi@example.com
+  password: ${JOBPILOT_EMAIL_PASSWORD}   # per Gmail usa una "password per le app"
+  smtp_host: smtp.gmail.com
+  smtp_port: 587
+  imap_host: imap.gmail.com
+  imap_port: 993
+  folder: INBOX
+  lookback_days: 14
+  auto_reply_categories: []   # es. [interview] per rispondere automaticamente agli inviti a colloquio
+
+llm:
+  enabled: false           # true per usare Claude (serve ANTHROPIC_API_KEY)
+  model: claude-opus-5-5
+  effort: low
+
+db_path: jobpilot.db

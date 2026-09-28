@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jobpilot"
+version = "0.1.0"
+description = "Monitora offerte di lavoro compatibili, invia candidature e segue le risposte via email"
+requires-python = ">=3.10"
+dependencies = ["requests>=2.31", "PyYAML>=6.0"]
+
+[project.optional-dependencies]
+ai = ["anthropic>=1.0"]
+dev = ["pytest"]
+
+[project.scripts]
+jobpilot = "jobpilot.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["jobpilot*"]
+
+[tool.setuptools.package-data]
+jobpilot = ["config.example.yaml"]
